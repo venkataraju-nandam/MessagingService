@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:camunda_1="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="Definitions_1" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collaboration_1hnoqxl">
+    <bpmn:participant id="MessagingService_Id" name="Messaging Service" processRef="MessagingServiceId"/>
+  </bpmn:collaboration>
+  <bpmn:process id="MessagingServiceId" name="Messaging_Service_Process" isExecutable="true">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_1gmiagn">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1sfwd5k_SendMessage</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_1l9q36b_demo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0cgrhbs</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1v7ilp0">
+        <bpmn:flowNodeRef>StartEvent_0d0tk1v_MessageStart</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_19mgohw_Raja</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_16apb3y</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>SequenceFlow_1qq7crm</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_1sfwd5k_SendMessage" camunda_1:class="org.camunda.msg.ProcessMessageDelegate" name="Send Message">
+      <bpmn:documentation>SendMessage</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_1qq7crm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0obz0sa</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_1l9q36b_demo" camunda:assignee="demo" camunda_1:assignee="demo" name="Waiting for Message to Process">
+      <bpmn:incoming>SequenceFlow_0obz0sa</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tduhm7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0cgrhbs" name="End">
+      <bpmn:incoming>SequenceFlow_1tduhm7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1qq7crm" sourceRef="StartEvent_1" targetRef="Task_1sfwd5k_SendMessage"/>
+    <bpmn:sequenceFlow id="SequenceFlow_0obz0sa" sourceRef="Task_1sfwd5k_SendMessage" targetRef="UserTask_1l9q36b_demo"/>
+    <bpmn:sequenceFlow id="SequenceFlow_1tduhm7" sourceRef="UserTask_1l9q36b_demo" targetRef="EndEvent_0cgrhbs"/>
+    <bpmn:sequenceFlow id="SequenceFlow_0gf39ol" sourceRef="StartEvent_0d0tk1v_MessageStart" targetRef="UserTask_19mgohw_Raja"/>
+    <bpmn:startEvent id="StartEvent_0d0tk1v_MessageStart" name="Get Message">
+      <bpmn:outgoing>SequenceFlow_0gf39ol</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1" messageRef="Message_1"/>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_19mgohw_Raja" camunda:assignee="Raja" camunda_1:assignee="Raja" name="Receive Message and Process">
+      <bpmn:extensionElements>
+        <camunda_1:executionListener class="org.camunda.msg.GetMessageDelegate" event="start"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0gf39ol</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pri5vp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0pri5vp" sourceRef="UserTask_19mgohw_Raja" targetRef="EndEvent_16apb3y"/>
+    <bpmn:endEvent id="EndEvent_16apb3y">
+      <bpmn:incoming>SequenceFlow_0pri5vp</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_1" name="myMessage_Instantiation_Msg002"/>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1hnoqxl">
+      <bpmndi:BPMNShape id="Participant_0nc8vrh_di" bpmnElement="MessagingService_Id" isHorizontal="false">
+        <dc:Bounds height="250.0" width="600.0" x="99.0" y="60.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="149.0" y="109.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="122.0" y="145.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1sfwd5k_di" bpmnElement="Task_1sfwd5k_SendMessage">
+        <dc:Bounds height="80.0" width="100.0" x="241.0" y="87.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1l9q36b_di" bpmnElement="UserTask_1l9q36b_demo">
+        <dc:Bounds height="80.0" width="100.0" x="408.0" y="87.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0cgrhbs_di" bpmnElement="EndEvent_0cgrhbs">
+        <dc:Bounds height="36.0" width="36.0" x="569.0" y="109.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="542.0" y="145.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qq7crm_di" bpmnElement="SequenceFlow_1qq7crm">
+        <di:waypoint xsi:type="dc:Point" x="185.0" y="127.0"/>
+        <di:waypoint xsi:type="dc:Point" x="241.0" y="127.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="168.0" y="117.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0obz0sa_di" bpmnElement="SequenceFlow_0obz0sa">
+        <di:waypoint xsi:type="dc:Point" x="341.0" y="127.0"/>
+        <di:waypoint xsi:type="dc:Point" x="408.0" y="127.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="329.5" y="117.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tduhm7_di" bpmnElement="SequenceFlow_1tduhm7">
+        <di:waypoint xsi:type="dc:Point" x="508.0" y="127.0"/>
+        <di:waypoint xsi:type="dc:Point" x="569.0" y="127.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="493.5" y="117.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1gmiagn_di" bpmnElement="Lane_1gmiagn" isHorizontal="false">
+        <dc:Bounds height="125.0" width="570.0" x="129.0" y="60.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1v7ilp0_di" bpmnElement="Lane_1v7ilp0" isHorizontal="false">
+        <dc:Bounds height="125.0" width="570.0" x="129.0" y="185.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0d0tk1v_di" bpmnElement="StartEvent_0d0tk1v_MessageStart">
+        <dc:Bounds height="36.0" width="36.0" x="149.0" y="222.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="84.0" x="132.0" y="257.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0gf39ol_di" bpmnElement="SequenceFlow_0gf39ol">
+        <di:waypoint xsi:type="dc:Point" x="185.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="213.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="213.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="241.0" y="240.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="168.0" y="224.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_19mgohw_di" bpmnElement="UserTask_19mgohw_Raja">
+        <dc:Bounds height="80.0" width="100.0" x="241.0" y="200.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_16apb3y_di" bpmnElement="EndEvent_16apb3y">
+        <dc:Bounds height="36.0" width="36.0" x="569.0" y="222.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="542.0" y="258.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pri5vp_di" bpmnElement="SequenceFlow_0pri5vp">
+        <di:waypoint xsi:type="dc:Point" x="341.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="455.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="455.0" y="240.0"/>
+        <di:waypoint xsi:type="dc:Point" x="569.0" y="240.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="331.0" y="230.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
