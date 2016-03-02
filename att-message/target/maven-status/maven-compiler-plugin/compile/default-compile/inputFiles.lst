@@ -1,5 +1,5 @@
-D:\marsWS1\att-message\src\main\java\org\camunda\msg\ProcessOrderDelegate.java
-D:\marsWS1\att-message\src\main\java\org\camunda\msg\ProcessMessageDelegate.java
-D:\marsWS1\att-message\src\main\java\org\camunda\msg\MessagingApplication.java
-D:\marsWS1\att-message\src\main\java\org\camunda\msg\ProcessOrderDelegateException.java
-D:\marsWS1\att-message\src\main\java\org\camunda\msg\GetMessageDelegate.java
+C:\Users\venkata.nandam\git\MessagingServiceGit\att-message\src\main\java\org\camunda\msg\MessagingApplication.java
+C:\Users\venkata.nandam\git\MessagingServiceGit\att-message\src\main\java\org\camunda\msg\GetMessageDelegate.java
+C:\Users\venkata.nandam\git\MessagingServiceGit\att-message\src\main\java\org\camunda\msg\ProcessOrderDelegateException.java
+C:\Users\venkata.nandam\git\MessagingServiceGit\att-message\src\main\java\org\camunda\msg\ProcessOrderDelegate.java
+C:\Users\venkata.nandam\git\MessagingServiceGit\att-message\src\main\java\org\camunda\msg\ProcessMessageDelegate.java
